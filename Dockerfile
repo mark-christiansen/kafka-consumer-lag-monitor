@@ -14,4 +14,4 @@ COPY target/${JMX_EXPORTER_CONFIG} /app/${JMX_EXPORTER_CONFIG}
 # unpacked archive is slightly faster on startup than running from an unexploded archive
 RUN /bin/bash -c 'cd /app; jar xf app.jar'
 
-ENTRYPOINT exec java $JAVA_OPTS -javaagent:/app/$AGENT_JAR=9100:/app/$AGENT_CONFIG -cp /app/BOOT-INF/classes:/app/BOOT-INF/lib/* com.jnj.kafka.admin.lagmon.Application
+ENTRYPOINT exec java $JAVA_OPTS -javaagent:/app/$AGENT_JAR=9100:/app/$AGENT_CONFIG -cp /app/BOOT-INF/classes:/app/BOOT-INF/lib/* com.jnj.kafka.consumerLagMonitor.lagmon.Application

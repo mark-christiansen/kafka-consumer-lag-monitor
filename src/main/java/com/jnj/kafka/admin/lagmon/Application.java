@@ -25,7 +25,7 @@ public class Application implements CommandLineRunner {
     @Autowired
     private AdminClient adminClient;
     @Autowired
-    private KafkaConsumer<String, String> consumer;
+    private KafkaConsumer<String, String> consumerClient;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args).close();
@@ -42,8 +42,8 @@ public class Application implements CommandLineRunner {
         boolean logResults = Boolean.parseBoolean(cmd.getOptionValue(OPTION_LOG_RESULTS));
         long timeout = cmd.hasOption(OPTION_COMMAND_TIMEOUT) ? Long.parseLong(cmd.getOptionValue(OPTION_COMMAND_TIMEOUT)) :
                 DEFAULT_COMMAND_TIMEOUT;
-        Admin admin = new Admin(adminClient, consumer, acceptList, denyList);
-        admin.start(timeout, logResults);
+        ConsumerLagMonitor consumerLagMonitor = new ConsumerLagMonitor(adminClient, consumerClient, acceptList, denyList);
+        consumerLagMonitor.collectStats(timeout, logResults);
     }
 
     private Options getOptions() {

@@ -225,7 +225,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.jnj.kafka.admin.Application</mainClass>
+                    <mainClass>com.jnj.kafka.consumerLagMonitor.Application</mainClass>
                     <layout>JAR</layout>
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>

@@ -1,11 +1,11 @@
-# kafka-admin-lag-monitor
+# kafka-consumerLagMonitor-lag-monitor
 To run the script make sure that you have the compiled jar file "kafka-consumer-lag-monitor-0.0.1.jar" in the same 
 directory as the shell script "kafka-consumer-lag-monitor.sh". In that same directory create a "conf" directory and add 
 an "application-<env>.yaml" to that directory, where <env> is an arbitrary name you want to give the Kafka environment 
 you are retrieving consumer group lag data from. See the example YAML file, "application-dev.yaml" in this project's 
 "conf" folder for an example of how to setup the file.
-In that all properties under "admin" are Kafka admin client properties as defined
-[here](https://docs.confluent.io/platform/current/installation/configuration/admin-configs.html).
+In that all properties under "consumerLagMonitor" are Kafka consumerLagMonitor client properties as defined
+[here](https://docs.confluent.io/platform/current/installation/configuration/consumerLagMonitor-configs.html).
 In that YAML, all properties under "consumer" are Kafka consumer properties as defined
 [here](https://docs.confluent.io/platform/current/installation/configuration/consumer-configs.html).
 
@@ -14,7 +14,7 @@ When running the script you specify the options like show below:
 ```
 kafka-consumer-lag-monitor.sh --timeout 5 --env dev
 
-    timeout: the number of seconds to wait for admin client requests (default is 5 seconds)
+    timeout: the number of seconds to wait for consumerLagMonitor client requests (default is 5 seconds)
     
     env: the name of the environment (conf/application-<env>.yaml) to load
 ```

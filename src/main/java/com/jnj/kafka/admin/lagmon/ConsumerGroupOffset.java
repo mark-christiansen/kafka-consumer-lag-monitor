@@ -10,7 +10,7 @@ public class ConsumerGroupOffset {
     private int partition;
     private long consumerGroupOffset;
     private long logEndOffset;
-    private List<Consumer> consumers = new ArrayList<>();
+    private final List<Consumer> consumers = new ArrayList<>();
 
     public String getGroupId() {
         return groupId;

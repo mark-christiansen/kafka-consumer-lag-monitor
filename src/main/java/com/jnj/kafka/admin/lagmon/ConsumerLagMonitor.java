@@ -15,27 +15,27 @@ import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
-public class Admin {
+public class ConsumerLagMonitor {
 
-    private static final Logger log = LoggerFactory.getLogger(Admin.class);
+    private static final Logger log = LoggerFactory.getLogger(ConsumerLagMonitor.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
     private final AdminClient adminClient;
-    private KafkaConsumer<String, String> consumer;
+    private final KafkaConsumer<String, String> consumerClient;
     private final Set<String> acceptList;
     private final Set<String> denyList;
 
-    public Admin(AdminClient adminClient,
-                 KafkaConsumer<String, String> consumer,
-                 Set<String> acceptList,
-                 Set<String> denyList) {
+    public ConsumerLagMonitor(AdminClient adminClient,
+                              KafkaConsumer<String, String> consumerClient,
+                              Set<String> acceptList,
+                              Set<String> denyList) {
         this.adminClient = adminClient;
-        this.consumer = consumer;
+        this.consumerClient = consumerClient;
         this.acceptList = acceptList;
         this.denyList = denyList;
     }
 
-    public void start(long timeout, boolean logResults) {
+    public void collectStats(long timeout, boolean logResults) {
 
         final List<ConsumerGroupOffset> offsets = new ArrayList<>();
 
@@ -65,8 +65,8 @@ public class Admin {
                 // get the consumer offsets
                 Map<TopicPartition, Long> consumerGroupOffsets = getConsumerGroupOffsets(groupId);
                 // get the log end offsets
-                Map<TopicPartition, Long> logEndOffsets = consumer.endOffsets(consumerGroupOffsets.keySet());
-                logEndOffsets.keySet().stream()
+                Map<TopicPartition, Long> logEndOffsets = consumerClient.endOffsets(consumerGroupOffsets.keySet());
+                logEndOffsets.keySet()
                     .forEach(p -> {
                         ConsumerGroupOffset offset = new ConsumerGroupOffset();
                         offset.setGroupId(group.groupId());
